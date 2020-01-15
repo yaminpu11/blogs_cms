@@ -8,7 +8,7 @@
 					<a href="index.html">Dashboard</a>
 				</li>
 				<li class="current">
-					<a href="pages_calendar.html" title="">Article</a>
+					<a href="pages_calendar.html" title="">Category</a>
 				</li>
 			</ul>
 		</div>
@@ -17,7 +17,7 @@
 		<!--=== Page Header ===-->
 		<div class="page-header">
 			<div class="page-title">
-				<h3><b>Article</b></h3>
+				<h3><b>Category</b></h3>
 				
 			</div>
 
@@ -28,7 +28,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<dl>
-					<a data-toggle="modal" href="#myModal"><button class="btn btn-primary"><i class="icon-plus"></i> New Article</button></a>
+					<a data-toggle="modal" href="#myModal"><button class="btn btn-primary"><i class="icon-plus"></i> New Category</button></a>
 				</dl>
 			</div>
 		</div>
@@ -38,7 +38,7 @@
 			<div class="col-md-12">
 				<div class="widget box">
 					<div class="widget-header">
-						<h4><i class="icon-reorder"></i> Article Table </h4>
+						<h4><i class="icon-reorder"></i> Category Table </h4>
 						<div class="toolbar no-padding">
 							<div class="btn-group">
 								<span class="btn btn-xs widget-collapse"><i class="icon-angle-down"></i></span>
@@ -52,10 +52,9 @@
 									<th class="checkbox-column">
 										<input type="checkbox" class="uniform">
 									</th>
-									<th data-class="expand">Title</th>
+									<th data-class="expand">Category</th>
 									<th>Author</th>
 									<th data-hide="phone">Create Date</th>
-									<th data-hide="phone,tablet">Status</th>
 									<th> Action </tr>
 								</tr>
 							</thead>
@@ -74,19 +73,19 @@
 
 </div>
 
-<!-- ======== add article modal ======= -->
+<!-- ======== add Category modal ======= -->
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h3 class="modal-title">New Article Form</h3>
+                <h3 class="modal-title">New category Form</h3>
             </div>
             <div class="modal-body form">
                 <form class="form-horizontal row-border" action="#" id="form">
 					<div class="alert alert-success fade in none" id="alert">
 						<i class="icon-remove close" data-dismiss="alert"></i>
-						<strong>Success!</strong> The article has been successfully added.
+						<strong>Success!</strong> The category has been successfully added.
 					</div>
 					<div class="form-group">
 						<label class="col-md-2 control-label">Title:</label>
@@ -155,13 +154,13 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<!-- ======== edit article modal ======= -->
+<!-- ======== edit category modal ======= -->
 <div class="modal fade" id="modal_edit" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h3 class="modal-title">Edit Article Form</h3>
+                <h3 class="modal-title">Edit category Form</h3>
             </div>
            
             <div class="modal-body form">
@@ -169,11 +168,11 @@
                 	<input class="form-control" type="hidden" name="idtitle_edit" id="idtitle_edit" placeholder="Title">
 					<div class="alert alert-success fade in none" id="alert1">
 						<i class="icon-remove close" data-dismiss="alert"></i>
-						<strong>Success!</strong> The article has been successfully update.
+						<strong>Success!</strong> The category has been successfully update.
 					</div>
 					<div class="alert alert-danger fade in none" id="alert2">
 						<i class="icon-remove close" data-dismiss="alert"></i>
-						<strong>Failed!</strong> The article has been failed update.
+						<strong>Failed!</strong> The category has been failed update.
 					</div>
 					<div class="form-group">
 						<label class="col-md-2 control-label">Title:</label>
@@ -254,7 +253,7 @@
       	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h5 class="modal-title" id="exampleModalLabel">Delete Article</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Delete category</h5>
         
       </div>
       <div class="modal-body">
@@ -275,7 +274,7 @@
 <script type="text/javascript">
 	// var save_method;
 	$(document).ready(function () {	
-		show_article();
+		show_category();
 		show_category();
 		show_category_edit();
 	});
@@ -317,17 +316,17 @@
 
 
 	// ===== View List Data ==== //
-	//function show all article
-    function show_article(){
+	//function show all category
+    function show_category(){
         $.ajax({
             type  : 'ajax',
-            url   : base_url_js +'__load_article',
+            url   : base_url_js +'__load_category',
             async : true,
             dataType : 'json',
             success : function(data){
                 var html = '';
                 var i;
-                var url_article = base_url_js +'edit_article';
+                var url_category = base_url_js +'edit_category';
                 for(i=0; i<data.length; i++){
                     html += '<tr>'+
                     		'<td class="checkbox-column">'+
@@ -338,7 +337,7 @@
                             '<td>'+data[i].CreateAT+'</td>'+
                             '<td><span class="label label-success">'+data[i].Status+'</span></td>'+
                             '<td style="text-align:left;">'+
-                                '<a href="#modal_edit" id="show_edit_article"  data-toggle="modal"  class="btn btn-info btn-sm " data-idtitle="'+data[i].ID_title+'" data-category="'+data[i].Category+'" data-content="'+data[i].Content+'"  data-images="'+data[i].Images+'" data-title="'+data[i].Title+'" data-url="'+data[i].Url+'" data-status="'+data[i].Status+'">Edit</a>'+' '+
+                                '<a href="#modal_edit" id="show_edit_category"  data-toggle="modal"  class="btn btn-info btn-sm " data-idtitle="'+data[i].ID_title+'" data-category="'+data[i].Category+'" data-content="'+data[i].Content+'"  data-images="'+data[i].Images+'" data-title="'+data[i].Title+'" data-url="'+data[i].Url+'" data-status="'+data[i].Status+'">Edit</a>'+' '+
                                 '<a href="#modal_delete" data-toggle="modal" class="btn btn-danger btn-sm item_delete" data-idtitle="'+data[i].ID_title+'">Delete</a>'+
                             '</td>'+
                             '</tr>';
@@ -350,7 +349,7 @@
     }
 
     	// ===== View Data Edit ====== //
-	$('#show_data').on('click','#show_edit_article',function(){
+	$('#show_data').on('click','#show_edit_category',function(){
 			var id = $(this).data('idtitle');
 			var title = $(this).data('title');
 			var category = $(this).data('category');
@@ -368,7 +367,7 @@
             $('[name="url_edit"]').val(url);
             $('[name="status_edit"]').val(status);
             // $('#exampleModal').modal('show'); // show bootstrap modal when complete loaded
-            // $('.modal-title').text('Edit Article Form'); // Set title to Bootstrap modal title
+            // $('.modal-title').text('Edit category Form'); // Set title to Bootstrap modal title
  
             $('#photo-preview').show(); // show photo preview modal
  
@@ -388,7 +387,7 @@
 		
    // ====== Save ===== //
 
-    //function add all article
+    //function add all category
     $('#btn_save').on('click',function(){
 
     		$('#btn_save').text('saving...'); //change button text
@@ -397,7 +396,7 @@
             var formData = new FormData($('#form')[0]);
             $.ajax({
                 type : "POST",
-                url  : base_url_js +'__save_article',
+                url  : base_url_js +'__save_category',
 				contentType: false,       // The content type used when sending data to the server.
 				cache: false,             // To unable request pages to be cached
 				processData:false,
@@ -414,7 +413,7 @@
             			$('#alert').addClass('active');
             			$('#alert').removeClass('none');
             			$('#myModal').modal('hide');
-                		show_article();
+                		show_category();
 		            }
 		            else
 		            {
@@ -441,7 +440,7 @@
         });
 
     // ===== Update ====== //
-    //function edit article
+    //function edit category
     
     $('#btn_update').on('click',function()
 		{
@@ -454,7 +453,7 @@
     		
             $.ajax({
                 type : "POST",
-                url  : base_url_js +'__update_article',
+                url  : base_url_js +'__update_category',
 				contentType: false,       // The content type used when sending data to the server.
 				cache: false,             // To unable request pages to be cached
 				processData:false,
@@ -477,7 +476,7 @@
             			$('#alert1').addClass('active');
             			$('#alert1').removeClass('none');
             			$('#modal_edit').modal('hide');
-                		show_article();
+                		show_category();
 		            }
 		            else
 		            {
@@ -518,7 +517,7 @@
 	{
 		var id =  $('#idtitle').val();
         $.ajax({
-            url :  base_url_js +'__delete_article',
+            url :  base_url_js +'__delete_category',
             type: "POST",
             dataType: "JSON",
             data:{id:id},
@@ -526,7 +525,7 @@
             {
                 //if success reload ajax table
                 $('#modal_delete').modal('hide');
-                show_article();
+                show_category();
             },
             error: function (data)
             {

@@ -29,12 +29,22 @@
 	<![endif]-->
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
 
+	<link href="https://pcam.podomorouniversity.ac.id/assets/template/plugins/toastr/toastr.min.css" rel="stylesheet" type="text/css" />
+
 	<!--=== JavaScript ===-->
 
 	<script type="text/javascript" src="<?= base_url('assets/js/libs/jquery-1.10.2.min.js')?>"></script>
 
 	<script type="text/javascript" src="<?= base_url('assets/bootstrap/js/bootstrap.min.js')?>"></script>
 	<script type="text/javascript" src="<?= base_url('assets/js/libs/lodash.compat.min.js')?>"></script>
+
+	<!-- JWT Encode -->
+	<script type="text/javascript" src="https://pcam.podomorouniversity.ac.id/assets/plugins/jwt/encode/hmac-sha256.js"></script>
+	<script type="text/javascript" src="https://pcam.podomorouniversity.ac.id/assets/plugins/jwt/encode/enc-base64-min.js"></script>
+	<script type="text/javascript" src="https://pcam.podomorouniversity.ac.id/assets/plugins/jwt/encode/jwt.encode.js"></script>
+
+	<!-- JWT Decode -->
+	<script type="text/javascript" src="https://pcam.podomorouniversity.ac.id/assets/plugins/jwt/decode/build/jwt-decode.min.js"></script>
 
 	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
@@ -49,14 +59,72 @@
 
 	<!-- Slim Progress Bars -->
 	<script type="text/javascript" src="<?= base_url('assets/plugins/nprogress/nprogress.js')?>"></script>
-
+	<script type="text/javascript" src="https://pcam.podomorouniversity.ac.id/assets/template/plugins/toastr/toastr.min.js"></script>
 	<!-- App -->
 	<script type="text/javascript" src="<?= base_url('assets/js/login.js')?>"></script>
 	<script>
+
 	$(document).ready(function(){
+		window.base_url_js = "<?php echo base_url(); ?>";
 		"use strict";
 		Login.init(); // Init login JavaScript
 	});
+
+	function FormSubmitAuto(action, method, values,blank = '_blank') {
+        var form = $('<form/>', {
+            action: action,
+            method: method
+        });
+        $.each(values, function() {
+            form.append($('<input/>', {
+                type: 'hidden',
+                name: this.name,
+                value: this.value
+            }));
+        });
+        form.attr('target', blank);
+        form.appendTo('body').submit();
+    }
+
+    function loading_button2(selector) {
+        selector.html('<i class="fa fa-refresh fa-spin fa-fw right-margin"></i> Loading...');
+        selector.prop('disabled',true);
+    }
+
+    function end_loading_button2(selector,html='Save'){
+        selector.prop('disabled',false).html(html);
+    }
+
+    $(document).on('click','#login',function () {
+    	var Username = $('#username').val();
+        var Password = $('#password').val();
+
+        if(Username!='' && Username!=null && Password!='' && Password!=null){
+		    var url = base_url_js+'__cek_login';
+				data = {
+					Username : Username,
+					Password : Password,
+				}
+		      var token = jwt_encode(data,"UAP)(*");
+		      console.log(token);
+		      FormSubmitAuto(url, 'POST', [
+		          { name: 'token', value: token },
+		          function (jsonResult) {
+		          		if(jsonResult.Status=='0'){
+		                    toastr.warning(jsonResult.Message,'Warning');
+		                }
+		          }
+		      ],'');
+		}
+		else{
+			// toastr.warning('Account non-active','Warning');
+			$('#username').val('').focus();
+			$('[name="username"]').addClass('has-error');
+			$('.alert').css("display", "block");
+		} 
+
+  	});
+
 	</script>
 </head>
 
@@ -69,9 +137,9 @@
 
 	<!-- Login Box -->
 	<div class="box">
-		<div class="content">
+		<div class="content ">
 			<!-- Login Formular -->
-			<form class="form-vertical login-form" action="index.html" method="post">
+			<!-- <form class="form-vertical login-form" action="" method="post"> -->
 				<!-- Title -->
 				<h3 class="form-title">Sign In to your Account</h3>
 
@@ -86,14 +154,14 @@
 					<!--<label for="username">Username:</label>-->
 					<div class="input-icon">
 						<i class="icon-user"></i>
-						<input type="text" name="username" class="form-control" placeholder="Username" autofocus="autofocus" data-rule-required="true" data-msg-required="Please enter your username." />
+						<input type="text" name="username" id="username" class="form-control" placeholder="Username" autofocus="autofocus" data-rule-required="true" data-msg-required="Please enter your username." />
 					</div>
 				</div>
 				<div class="form-group">
 					<!--<label for="password">Password:</label>-->
 					<div class="input-icon">
 						<i class="icon-lock"></i>
-						<input type="password" name="password" class="form-control" placeholder="Password" data-rule-required="true" data-msg-required="Please enter your password." />
+						<input type="password" name="password" id="password" class="form-control" placeholder="Password" data-rule-required="true" data-msg-required="Please enter your password." />
 					</div>
 				</div>
 				<!-- /Input Fields -->
@@ -101,15 +169,15 @@
 				<!-- Form Actions -->
 				<div class="form-actions">
 					<!-- <label class="checkbox pull-left"><input type="checkbox" class="uniform" name="remember"> Remember me</label> -->
-					<button type="submit" class="submit btn btn-primary pull-right">
+					<button type="submit" id="login" class="submit btn btn-primary pull-right">
 						Sign In <i class="icon-angle-right"></i>
 					</button>
 				</div>
-			</form>
+			<!-- </form> -->
 			<!-- /Login Formular -->
 
 			<!-- Register Formular (hidden by default) -->
-			<form class="form-vertical register-form" action="index.html" method="post" style="display: none;">
+			<form class="form-vertical register-form" action="" method="post" style="display: none;">
 				<!-- Title -->
 				<h3 class="form-title">Sign Up for Free</h3>
 
@@ -168,7 +236,7 @@
 				<div class="text-center"><p>© 2020 Universitas Agung Podomoro</p>
 				<!-- </p>Version 2.0.1</p> --></div>
 				<!-- Forgot Password Formular -->
-				<form class="form-vertical forgot-password-form hide-default" action="login.html" method="post">
+				<form class="form-vertical forgot-password-form hide-default" action="" method="post">
 					<!-- Input Fields -->
 					<div class="form-group">
 						<!--<label for="email">Email:</label>-->

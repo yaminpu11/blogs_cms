@@ -58,6 +58,10 @@ $route['add_article']='c_content/add_article';
 $route['about']='c_content/about';
 $route['edit_article/(:any)']='c_content/edit_article/$1';
 $route['show_category']='c_content/show_category';
+$route['category'] = 'c_content/category';
+$route['contact']='c_content/contact';
+$route['login']='c_login/login';
+
 // ======== CRUD ====== //
 
 $route['__load_article'] = 'c_content/show_article';
@@ -65,9 +69,15 @@ $route['__save_article'] = 'c_content/save_article';
 $route['__update_article'] = 'c_content/update_article';
 $route['__delete_article'] = 'c_content/delete_article';
 $route['__show_editarticle/(:any)'] = 'c_content/show_editarticle/$1';
-
 $route['__show_about']='c_content/show_about';
 $route['__update_about']='c_content/update_about';
+$route['__load_contact'] = 'c_content/show_contact';
+
+$route['__load_contact'] = 'c_content/show_contact';
+
+// ====== LOGIN ========= //
+
+$route['__cek_login'] = 'c_login/cek_login';
 
 
 

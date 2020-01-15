@@ -13,53 +13,59 @@ class M_article extends CI_Model{
     // ========== CRUD Article ========== //
 
 	function list_article(){
-		$hasil= $this->db->query('select * from article order by ID_title desc');
+		$hasil= $this->db->query('select * from db_blogs.article order by ID_title desc');
+		return $hasil->result();
+		
+	}
+
+	function list_contact(){
+		$hasil= $this->db->query('select * from db_blogs.contact order by ID_contact desc');
 		return $hasil->result();
 	}
 
-	function data_about(){
-		$hasil= $this->db->query('SELECT * FROM about WHERE ID_AboutUS=1');
-		return $hasil->result();
+	function data_about($id){
+		return $this->db->get_where('about', array('ID_AboutUS' => $id))->row();
+
+		// $hasil= $this->db->query('SELECT * FROM about WHERE ID_AboutUS='.$id.'');
+		// return $hasil->result();
 	}
+
 
 	function show_category(){
-		$hasil=$this->db->get('category');
+		$hasil=$this->db->get('db_blogs.category');
 		return $hasil->result();
 	}
 
 	function save_article($data){
 
-		$this->db->insert('article', $data);
+		$this->db->insert('db_blogs.article', $data);
         return $this->db->insert_id();
         // $result=$this->db->insert('article',$data);
     }
  	
  	public function get_by_id($id)
     {
-        return $this->db->get_where('article', array('ID_title' => $id))->row();
+        return $this->db->get_where('db_blogs.article', array('ID_title' => $id))->row();
 	}
 
     public function update_article($where, $data)
     {
     	$this->db->where('ID_title',$where);
-    	$this->db->update('article', $data);
+    	$this->db->update('db_blogs.article', $data);
         return 1;
     }
 
     public function update_about($data)
     {
     	$this->db->where('ID_AboutUS',1);
-    	$this->db->update('about', $data);
+    	$this->db->update('db_blogs.about', $data);
         return 1;
     }
  
     function delete_article(){
-        
-        // $this->db->where('ID_title', $id);
-        // $result=$this->db->delete('article');
-        // return $result;
+       
         $id = $this->input->post('id');
-        $hasil=$this->db->query("DELETE FROM article WHERE ID_title='$id'");
+        $hasil=$this->db->query("DELETE FROM db_blogs.article WHERE ID_title='$id'");
 		return $hasil;
     }
 

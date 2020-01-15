@@ -137,17 +137,12 @@
 						Dashboard
 					</a>
 				</li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						Dropdown
-						<i class="icon-caret-down small"></i>
+				<li>
+					<a href="http://localhost/blogs" target="_blink">
+						Preview Live
+						<i class="icon-external-link"></i>
 					</a>
-					<ul class="dropdown-menu">
-						<li><a href="#"><i class="icon-user"></i> Example #1</a></li>
-						<li><a href="#"><i class="icon-calendar"></i> Example #2</a></li>
-						<li class="divider"></li>
-						<li><a href="#"><i class="icon-tasks"></i> Example #3</a></li>
-					</ul>
+					
 				</li>
 			</ul>
 			<!-- /Top Left Menu -->
@@ -477,6 +472,12 @@
 								Article
 								</a>
 							</li>
+							<li>
+								<a href="<?=  base_url('category')?>">
+								<i class="icon-angle-right"></i>
+								Category
+								</a>
+							</li>
 							<!-- <li>
 								<a href="<?=  base_url('article')?>">
 								<i class="icon-angle-right"></i>
@@ -494,7 +495,7 @@
 					</li>
 
 					<li>
-						<a href="javascript:void(0);">
+						<a href="<?= base_url('contact')?>">
 							<i class="icon-book"></i>
 							Contact
 						</a>

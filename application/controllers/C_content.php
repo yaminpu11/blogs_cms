@@ -9,6 +9,7 @@ class C_content extends MY_Controller {
          // header('Access-Control-Allow-Origin: *');
         // header('Content-Type: application/json');
         $this->load->model('m_article');
+
 	}
 
 	public function dateTimeNow(){
@@ -41,20 +42,38 @@ class C_content extends MY_Controller {
 		$content = $this->load->view('V_addarticle','',true);
 		parent::template($content);
 	}
+
 	public function about()
 	{
 		$content = $this->load->view('V_editabout','',true);
 		parent::template($content);
 	}
 
+	public function category()
+	{
+		$content = $this->load->view('V_category','',true);
+		parent::template($content);
+	}
+
+	public function contact()
+	{
+		$content = $this->load->view('V_contact','',true);
+		parent::template($content);
+	}
+
 	// ===== CRUD Article ====== //
 	
-   function show_article(){
+    function show_article(){
         $data=$this->m_article->list_article();
         echo json_encode($data);
     }
+     function show_contact(){
+        $data=$this->m_article->list_contact();
+        echo json_encode($data);
+    }
     function show_about(){
-        $data=$this->m_article->data_about();
+    	$id = $this->input->post('id');
+        $data = $this->m_article->data_about($id);
         echo json_encode($data);
     }
 

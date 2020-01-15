@@ -42,7 +42,8 @@
 										</div>
 										<div class="form-group">
 											<label class="col-md-2 control-label">Title:</label>
-											<div class="col-md-4"><input class="form-control" type="text" name="title" id="title" placeholder="Title">
+											<div class="col-md-4">
+												<input class="form-control" type="text" name="title" id="title" value="">
 											 <span class="help-block"></span>
 											</div>
 										</div>										
@@ -90,20 +91,17 @@ $(document).ready(function() {
 	//function show about
     function show_about(){
        	var id=$('#idtitle').val();
-       	var title=$('#title').val();
-       	alert(id);
         $.ajax({
             type  : 'POST',
             url   : base_url_js +'__show_about',
+            async: false,
+            cache: false,
             data:{id:id},
             dataType : 'json',
             success : function(data){
-            	$.each(data,function(ID_AboutUS, Title, Description){
-            	console.log(data.Title);
                 	$('#idtitle').val(data.ID_AboutUS);
-		            $('#title').val(data.Title);
-		            $('#content').val(data.Description);
-		        });
+		            $('input[name="title"]').val(data.Title);
+		            $('textarea[name="content"]').val(data.Description);
             },  
             error: function (data)
 		        {
@@ -134,7 +132,6 @@ $(document).ready(function() {
 		            {
 		                $('#btn_update').text('Update'); //change button text
             			$('#btn_update').attr('disabled',false); //set button enable 
-            			document.getElementById("form").reset();
             			$('#alert').addClass('active');
             			$('#alert').removeClass('none');
 		            }
