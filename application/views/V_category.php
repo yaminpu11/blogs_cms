@@ -49,9 +49,9 @@
 						<table class="table table-striped table-bordered table-hover table-checkable table-responsive datatable">
 							<thead>
 								<tr>
-									<th class="checkbox-column">
+									<!-- <th class="checkbox-column">
 										<input type="checkbox" class="uniform">
-									</th>
+									</th> -->
 									<th data-class="expand">Category</th>
 									<th>Author</th>
 									<th data-hide="phone">Create Date</th>
@@ -89,60 +89,10 @@
 					</div>
 					<div class="form-group">
 						<label class="col-md-2 control-label">Title:</label>
-						<div class="col-md-9"><input class="form-control" type="text" name="title" id="title" placeholder="Title">
+						<div class="col-md-9"><input class="form-control" type="text" name="title" id="title" placeholder="Category Name/Titel">
 						 <span class="help-block"></span>
 						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="col-md-2 control-label">Category:</label>
-						<div class="col-md-9">
-							
-							<select class="form-control" name="category" id="category">
-								<option value="">Select</option>
-							</select>
-							 <span class="help-block"></span>
-								
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-md-2 control-label">Images Upload:</label>
-						<div class="col-md-9">
-
-							<input type="file" name="photo" class="required" accept="image/*" data-style="fileinput" data-inputsize="medium">
-							<p class="help-block">Images only (image/*)</p>
-							<label for="photo" class="has-error help-block" generated="true" style="display:none;"></label>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-md-2 control-label">Url:</label>
-						<div class="col-md-9"><input type="text" name="url" id="url" placeholder="https://www.youtube.com/watch?v=xsxxxxx" class="form-control">
-						 <span class="help-block"></span>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-md-2 control-label">Content:</label>
-						<div class="col-md-9"><textarea rows="5" name="content" class="form-control wysiwyg"></textarea>
-						 <span class="help-block"></span>
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="col-md-2 control-label">Status:</label>
-						<div class="col-md-9">
-						
-							<select class="form-control" name="status" id="status">
-								<option value="">Select</option>
-								<option value="Published">Published</option>
-								<option value="Draft">Draft</option>
-							</select>
-							 <span class="help-block"></span>
-							
-						</div>
-					</div>
-					<!-- <div class="form-actions">
-						<button class="btn btn-primary pull-right" id="btn_save"><i class="icon-check"></i> Submit</button>
-					</div> -->
+					</div>				
 				
             </div>
             <div class="modal-footer">
@@ -178,61 +128,7 @@
 						<label class="col-md-2 control-label">Title:</label>
 						<div class="col-md-9"><input class="form-control" type="text" value="" name="title_edit" id="title_edit" placeholder="Title">
 						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="col-md-2 control-label">Category:</label>
-						<div class="col-md-9">
-						
-							<select class="form-control" name="category_edit" id="category_edit">
-								<option value="">Select</option>
-								
-							</select>
-							
-						</div>
-					</div>
-					<div class="form-group" id="photo-preview">
-                        <label class="col-md-2 control-label">Photo</label>
-                        <div class="col-md-9">
-                            (No photo)
-                        </div>
-                    </div>
-					<div class="form-group">
-						<label class="col-md-2 control-label">Images Upload:</label>
-						<div class="col-md-9">
-
-							<input type="file" name="photo" id="photo_edit"  accept="image/*" data-style="fileinput" data-inputsize="medium">
-							<p class="help-block">Images only (image/*)</p>
-							<label for="photo" class="has-error help-block" generated="true" style="display:none;"></label>
-							<span class="help-block"></span>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-md-2 control-label">Url:</label>
-						<div class="col-md-9"><input type="text" name="url_edit" id="url_edit" placeholder="https://www.youtube.com/watch?v=xsxxxxx" class="form-control">
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-md-2 control-label">Content:</label>
-						<div class="col-md-9"><textarea rows="5" name="content_edit" id="content_edit" class="form-control "></textarea>
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="col-md-2 control-label">Status:</label>
-						<div class="col-md-9">
-							
-							<select class="form-control" name="status_edit" id="status_edit">
-								<option value="">Select</option>
-								<option value="Published">Published</option>
-								<option value="Draft">Draft</option>
-							</select>
-								
-						</div>
-					</div>
-					<!-- <div class="form-actions">
-						<button class="btn btn-primary pull-right" id="btn_save"><i class="icon-check"></i> Submit</button>
-					</div> -->
+					</div>					
 				
             </div>
             <div class="modal-footer">
@@ -275,70 +171,33 @@
 	// var save_method;
 	$(document).ready(function () {	
 		show_category();
-		show_category();
-		show_category_edit();
 	});
 
- 	// ===== Category ====== //
-	function show_category(){
-        $.ajax({
-            type  : 'ajax',
-            url   : base_url_js +'show_category',
-            async : true,
-            dataType : 'json',
-            success : function(data){
-            	var html = '';
-            	var i;
-            	for(i=0; i<data.length; i++){
-            	 	html += '<option value="'+data[i].Name+'">'+data[i].Name+'</option>';
-				}
-                $('#category').html(html);
-            }
-        });
-	}
-	function show_category_edit(){
-        $.ajax({
-            type  : 'ajax',
-            url   : base_url_js +'show_category',
-            async : true,
-            dataType : 'json',
-            success : function(data){
-            	var html = '';
-            	var i;
-            	for(i=0; i<data.length; i++){
-            	 	html += '<option value="'+data[i].Name+'">'+data[i].Name+'</option>';
-				}
-                $('#category_edit').html(html);
-            }
-        });
-	}
-
-
-
+ 	
 	// ===== View List Data ==== //
 	//function show all category
     function show_category(){
         $.ajax({
             type  : 'ajax',
-            url   : base_url_js +'__load_category',
+            url   : base_url_js +'show_category',
             async : true,
             dataType : 'json',
             success : function(data){
                 var html = '';
                 var i;
                 var url_category = base_url_js +'edit_category';
+                var i=1;
                 for(i=0; i<data.length; i++){
                     html += '<tr>'+
-                    		'<td class="checkbox-column">'+
-									'<input type="checkbox" class="uniform">'+
-							'</td>'+
-                            '<td>'+data[i].Title+'</td>'+
+       //              		'<td class="checkbox-column">'+
+							// 		// '<input type="checkbox" class="uniform">'+
+							// '</td>'+
+                            '<td>'+data[i].Name+'</td>'+
                             '<td>'+data[i].UpdateBY+'</td>'+
                             '<td>'+data[i].CreateAT+'</td>'+
-                            '<td><span class="label label-success">'+data[i].Status+'</span></td>'+
                             '<td style="text-align:left;">'+
-                                '<a href="#modal_edit" id="show_edit_category"  data-toggle="modal"  class="btn btn-info btn-sm " data-idtitle="'+data[i].ID_title+'" data-category="'+data[i].Category+'" data-content="'+data[i].Content+'"  data-images="'+data[i].Images+'" data-title="'+data[i].Title+'" data-url="'+data[i].Url+'" data-status="'+data[i].Status+'">Edit</a>'+' '+
-                                '<a href="#modal_delete" data-toggle="modal" class="btn btn-danger btn-sm item_delete" data-idtitle="'+data[i].ID_title+'">Delete</a>'+
+                                '<a href="#modal_edit" id="show_edit_category"  data-toggle="modal"  class="btn btn-info btn-sm " data-idtitle="'+data[i].ID_category+'"  data-title="'+data[i].Name+'">Edit</a>'+' '+
+                                '<a href="#modal_delete" data-toggle="modal" class="btn btn-danger btn-sm item_delete" data-idtitle="'+data[i].ID_category+'">Delete</a>'+
                             '</td>'+
                             '</tr>';
                 }
@@ -352,37 +211,10 @@
 	$('#show_data').on('click','#show_edit_category',function(){
 			var id = $(this).data('idtitle');
 			var title = $(this).data('title');
-			var category = $(this).data('category');
-			var content = $(this).data('content');
-			var url = $(this).data('url');
-			var status = $(this).data('status');
-			var images = $(this).data('images');
 		    //Ajax Load data from ajax
 		    		 		
             $('[name="idtitle_edit"]').val(id);
             $('[name="title_edit"]').val(title);
-            $('[name="category_edit"]').val(category);
-            // $('#show_cat_edit_edit').append('<option value="'+category+'" selected>'+category+'</option>');
-            $('[name="content_edit"]').val(content);
-            $('[name="url_edit"]').val(url);
-            $('[name="status_edit"]').val(status);
-            // $('#exampleModal').modal('show'); // show bootstrap modal when complete loaded
-            // $('.modal-title').text('Edit category Form'); // Set title to Bootstrap modal title
- 
-            $('#photo-preview').show(); // show photo preview modal
- 
-            if(images !=='')
-            {
-                $('#label-photo').text('Change Photo'); // label photo upload
-                $('#photo-preview div').html('<img src="'+base_url_js+'upload/'+images+'" class="img-responsive">'); // show photo
-                $('#photo-preview div').append('<input type="checkbox" name="remove_photo" value="'+images+'"/> Remove photo when saving'); // remove photo
- 
-            }
-            else
-            {
-                $('#label-photo').text('Upload Photo'); // label photo upload
-                $('#photo-preview div').text('(No photo)');
-            } 
         });
 		
    // ====== Save ===== //
@@ -393,39 +225,39 @@
     		$('#btn_save').text('saving...'); //change button text
     		$('#btn_save').attr('disabled',true); //set button disable
     		
-            var formData = new FormData($('#form')[0]);
+    		var formData = new FormData($('#form')[0]);
+
             $.ajax({
                 type : "POST",
                 url  : base_url_js +'__save_category',
 				contentType: false,       // The content type used when sending data to the server.
 				cache: false,             // To unable request pages to be cached
-				processData:false,
+                processData:false,
                 dataType : "JSON",
                 data : formData,
                 success: function(data){
-                    
-			       if(data.status) //if success close modal and reload ajax table
-		            {
-		                $('#btn_save').text('save'); //change button text
-            			$('#btn_save').attr('disabled',false); //set button enable 
-            			document.getElementById("form").reset();
+        				if(data.status) //if success close modal and reload ajax table
+			            {
+			                $('#btn_save').text('save'); //change button text
+	            			$('#btn_save').attr('disabled',false); //set button enable 
+	            			document.getElementById("form").reset();
 
-            			$('#alert').addClass('active');
-            			$('#alert').removeClass('none');
-            			$('#myModal').modal('hide');
-                		show_category();
-		            }
-		            else
-		            {
-		                for (var i = 0; i < data.inputerror.length; i++) 
-		                {
-		                    $('[name="'+data.inputerror[i]+'"]').parent().parent().addClass('has-error'); //select parent twice to select div form-group class and add has-error class
-		                    $('[name="'+data.inputerror[i]+'"]').next().text(data.error_string[i]); //select span help-block class set text error string
-		                    
-		                }
-		            }
-			       	$('#btn_save').text('save'); //change button text
-            		$('#btn_save').prop('disabled',false); //set button enable 
+	            			$('#alert').addClass('active');
+	            			$('#alert').removeClass('none');
+	            			$('#myModal').modal('hide');
+	                		show_article();
+			            }
+			            else
+			            {
+			                for (var i = 0; i < data.inputerror.length; i++) 
+			                {
+			                    $('[name="'+data.inputerror[i]+'"]').parent().parent().addClass('has-error'); //select parent twice to select div form-group class and add has-error class
+			                    $('[name="'+data.inputerror[i]+'"]').next().text(data.error_string[i]); //select span help-block class set text error string
+			                    
+			                }
+			            }
+				       	$('#btn_save').text('save'); //change button text
+	            		$('#btn_save').prop('disabled',false); //set button enable 
 
 			    },
 			    error: function (data)
@@ -469,11 +301,7 @@
 
             			$('[name="idtitle_edit"]').val("");
 			            $('[name="title_edit"]').val("");
-			            $('[name="content_edit"]').val("");
-			            $('[name="url_edit"]').val("");
-			            $('[name="status_edit"]').val("");
-
-            			$('#alert1').addClass('active');
+	            		$('#alert1').addClass('active');
             			$('#alert1').removeClass('none');
             			$('#modal_edit').modal('hide');
                 		show_category();

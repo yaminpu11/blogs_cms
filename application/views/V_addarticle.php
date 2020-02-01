@@ -95,7 +95,7 @@
 										</div>
 										<div class="form-group">
 											<label class="col-md-2 control-label">Content:</label>
-											<div class="col-md-8"><textarea rows="5" name="content" class="form-control wysiwyg"></textarea>
+											<div class="col-md-8"><textarea rows="5" id="summernote" name="content" class="form-control "></textarea>
 											 <span class="help-block"></span>
 											</div>
 										</div>

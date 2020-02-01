@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-	<title>Login | Melon - Flat &amp; Responsive Admin Template</title>
+	<title>Login | Blog Mahasiswa Podomoro University</title>
 
 	<!--=== CSS ===-->
 
@@ -62,92 +62,31 @@
 	<script type="text/javascript" src="https://pcam.podomorouniversity.ac.id/assets/template/plugins/toastr/toastr.min.js"></script>
 	<!-- App -->
 	<script type="text/javascript" src="<?= base_url('assets/js/login.js')?>"></script>
-	<script>
-
-	$(document).ready(function(){
-		window.base_url_js = "<?php echo base_url(); ?>";
-		"use strict";
-		Login.init(); // Init login JavaScript
-	});
-
-	function FormSubmitAuto(action, method, values,blank = '_blank') {
-        var form = $('<form/>', {
-            action: action,
-            method: method
-        });
-        $.each(values, function() {
-            form.append($('<input/>', {
-                type: 'hidden',
-                name: this.name,
-                value: this.value
-            }));
-        });
-        form.attr('target', blank);
-        form.appendTo('body').submit();
-    }
-
-    function loading_button2(selector) {
-        selector.html('<i class="fa fa-refresh fa-spin fa-fw right-margin"></i> Loading...');
-        selector.prop('disabled',true);
-    }
-
-    function end_loading_button2(selector,html='Save'){
-        selector.prop('disabled',false).html(html);
-    }
-
-    $(document).on('click','#login',function () {
-    	var Username = $('#username').val();
-        var Password = $('#password').val();
-
-        if(Username!='' && Username!=null && Password!='' && Password!=null){
-		    var url = base_url_js+'__cek_login';
-				data = {
-					Username : Username,
-					Password : Password,
-				}
-		      var token = jwt_encode(data,"UAP)(*");
-		      console.log(token);
-		      FormSubmitAuto(url, 'POST', [
-		          { name: 'token', value: token },
-		          function (jsonResult) {
-		          		if(jsonResult.Status=='0'){
-		                    toastr.warning(jsonResult.Message,'Warning');
-		                }
-		          }
-		      ],'');
-		}
-		else{
-			// toastr.warning('Account non-active','Warning');
-			$('#username').val('').focus();
-			$('[name="username"]').addClass('has-error');
-			$('.alert').css("display", "block");
-		} 
-
-  	});
-
-	</script>
+	
 </head>
 
 <body class="login">
 	<!-- Logo -->
 	<div class="logo">
-		<img style="width: 15%;padding: 15px; margin-bottom: 40px;" src="<?= base_url('assets/img/logo-l.png')?>" alt="logo" />
+		<img style="width: 15%;padding: 15px; margin-bottom: 40px;" src="<?= base_url('assets/img/PU.png')?>" alt="logo" />
 	</div>
 	<!-- /Logo -->
 
 	<!-- Login Box -->
 	<div class="box">
-		<div class="content ">
+		<div class="content">
 			<!-- Login Formular -->
 			<!-- <form class="form-vertical login-form" action="" method="post"> -->
 				<!-- Title -->
 				<h3 class="form-title">Sign In to your Account</h3>
 
 				<!-- Error Message -->
-				<div class="alert fade in alert-danger" style="display: none;">
+				<!-- <div class="alert fade in alert-danger" style="display: none;" id = "divMSG">
 					<i class="icon-remove close" data-dismiss="alert"></i>
-					Enter any username and password.
-				</div>
+					<?php if ($this->session->flashdata('Message')): ?>
+						<?php echo $this->session->flashdata('Message') ?>
+					<?php endif ?>
+				</div> -->
 
 				<!-- Input Fields -->
 				<div class="form-group">
@@ -287,5 +226,95 @@
 		<a href="#" class="sign-up">Don't have an account yet? <strong>Sign Up</strong></a>
 	</div> -->
 	<!-- /Footer -->
+
+	<script>
+	
+	$(document).ready(function(){
+		window.base_url_js = "<?php echo base_url(); ?>";
+		"use strict";
+		Login.init(); // Init login JavaScript
+		toastr.options = {
+		  "closeButton": true,
+		  "debug": false,
+		  "newestOnTop": false,
+		  "progressBar": false,
+		  "positionClass": "toast-top-center",
+		  "preventDuplicates": false,
+		  "onclick": null,
+		  "showDuration": "300",
+		  "hideDuration": "1000",
+		  "timeOut": "5000",
+		  "extendedTimeOut": "1000",
+		  "showEasing": "swing",
+		  "hideEasing": "linear",
+		  "showMethod": "fadeIn",
+		  "hideMethod": "fadeOut"
+		}
+		<?php if ($this->session->flashdata('Message')): ?>
+			var msg = "<?php echo $this->session->flashdata('Message') ?>";
+			toastr.error(msg,'!Error');
+		<?php endif ?>
+	});
+
+	function FormSubmitAuto(action, method, values,blank = '_self') {
+
+        var form = $('<form/>', {
+            action: action,
+            method: method
+        });
+        $.each(values, function() {
+            form.append($('<input/>', {
+                type: 'hidden',
+                name: this.name,
+                value: this.value
+            }));
+        });
+        form.attr('target', blank);
+        form.appendTo('body').submit();
+    }
+
+    function loading_button2(selector) {
+        selector.html('<i class="fa fa-refresh fa-spin fa-fw right-margin"></i> Loading...');
+        selector.prop('disabled',true);
+    }
+
+    function end_loading_button2(selector,html='Save'){
+        selector.prop('disabled',false).html(html);
+    }
+
+    $(document).on('click','#login',function () {
+    	var Username = $('#username').val();
+        var Password = $('#password').val();
+
+        if(Username!='' && Username!=null && Password!='' && Password!=null){
+		    var url = base_url_js+'__cek_login';
+				data = {
+					Username : Username,
+					Password : Password,
+				}
+	      	var token = jwt_encode(data,"UAP)(*");
+			FormSubmitAuto(url, 'POST', [
+				          { name: 'token', value: token },
+				]);
+
+		}
+		else{
+			if(Username==='' && Password===''){
+				toastr.error('Enter any username and password.','Warning');
+			}else if(Username===''){
+				toastr.error('Enter any username.','Warning');
+
+			}else{
+				toastr.error('Enter any Password.','Warning');
+			}
+			// toastr.error('Enter any username and password.','Warning');
+			// $('#username').val('').focus();
+			// $('[name="username"]').addClass('has-error');
+			// $('.alert').css("display", "block");
+		} 
+
+  	});
+
+	</script>
 </body>
 </html>

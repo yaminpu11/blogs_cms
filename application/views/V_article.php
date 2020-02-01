@@ -115,15 +115,15 @@
 							<label for="photo" class="has-error help-block" generated="true" style="display:none;"></label>
 						</div>
 					</div>
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label class="col-md-2 control-label">Url:</label>
 						<div class="col-md-9"><input type="text" name="url" id="url" placeholder="https://www.youtube.com/watch?v=xsxxxxx" class="form-control">
 						 <span class="help-block"></span>
 						</div>
-					</div>
+					</div> -->
 					<div class="form-group">
 						<label class="col-md-2 control-label">Content:</label>
-						<div class="col-md-9"><textarea rows="5" name="content" class="form-control wysiwyg"></textarea>
+						<div class="col-md-9"><textarea rows="5" name="content" class="form-control"></textarea>
 						 <span class="help-block"></span>
 						</div>
 					</div>
@@ -199,7 +199,7 @@
                         </div>
                     </div>
 					<div class="form-group">
-						<label class="col-md-2 control-label">Images Upload:</label>
+						<label class="col-md-2 control-label">Image Upload:</label>
 						<div class="col-md-9">
 
 							<input type="file" name="photo" id="photo_edit"  accept="image/*" data-style="fileinput" data-inputsize="medium">
@@ -208,14 +208,14 @@
 							<span class="help-block"></span>
 						</div>
 					</div>
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label class="col-md-2 control-label">Url:</label>
 						<div class="col-md-9"><input type="text" name="url_edit" id="url_edit" placeholder="https://www.youtube.com/watch?v=xsxxxxx" class="form-control">
 						</div>
-					</div>
+					</div> -->
 					<div class="form-group">
 						<label class="col-md-2 control-label">Content:</label>
-						<div class="col-md-9"><textarea rows="5" name="content_edit" id="content_edit" class="form-control "></textarea>
+						<div class="col-md-9"><textarea rows="5"  name="content_edit"  class="form-control "></textarea>
 						</div>
 					</div>
 					
@@ -336,7 +336,7 @@
                             '<td>'+data[i].Title+'</td>'+
                             '<td>'+data[i].UpdateBY+'</td>'+
                             '<td>'+data[i].CreateAT+'</td>'+
-                            '<td><span class="label label-success">'+data[i].Status+'</span></td>'+
+                            '<td><span class="label '+data[i].Status+'">'+data[i].Status+'</span></td>'+
                             '<td style="text-align:left;">'+
                                 '<a href="#modal_edit" id="show_edit_article"  data-toggle="modal"  class="btn btn-info btn-sm " data-idtitle="'+data[i].ID_title+'" data-category="'+data[i].Category+'" data-content="'+data[i].Content+'"  data-images="'+data[i].Images+'" data-title="'+data[i].Title+'" data-url="'+data[i].Url+'" data-status="'+data[i].Status+'">Edit</a>'+' '+
                                 '<a href="#modal_delete" data-toggle="modal" class="btn btn-danger btn-sm item_delete" data-idtitle="'+data[i].ID_title+'">Delete</a>'+
@@ -364,6 +364,7 @@
             $('[name="title_edit"]').val(title);
             $('[name="category_edit"]').val(category);
             // $('#show_cat_edit_edit').append('<option value="'+category+'" selected>'+category+'</option>');
+            // $('[name="content_edit"]').summernote("code",content);
             $('[name="content_edit"]').val(content);
             $('[name="url_edit"]').val(url);
             $('[name="status_edit"]').val(status);
@@ -415,6 +416,7 @@
             			$('#alert').removeClass('none');
             			$('#myModal').modal('hide');
                 		show_article();
+
 		            }
 		            else
 		            {
@@ -467,6 +469,7 @@
 		            {
 		                $('#btn_update').text('Save'); //change button text
             			$('#btn_update').attr('disabled',false); //set button enable 
+            			document.getElementById("form1").reset();
 
             			$('[name="idtitle_edit"]').val("");
 			            $('[name="title_edit"]').val("");

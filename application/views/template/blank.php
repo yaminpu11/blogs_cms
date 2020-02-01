@@ -32,6 +32,8 @@
 		<link href="<?= base_url('assets/css/ie8.css')?>" rel="stylesheet" type="text/css" />
 	<![endif]-->
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+	<link href="<?= base_url('assets/plugins/summernote/summernote.css')?>" rel="stylesheet" type="text/css" />
+	<link href="<?= base_url('assets/css/prettify.css')?>" rel="stylesheet" type="text/css" />
 
 	<!--=== JavaScript ===-->
 
@@ -67,7 +69,7 @@
     <script type="text/javascript" src="<?= base_url('assets/plugins/jwt/decode/build/jwt-decode.min.js')?>"></script>
 
 	<!-- Page specific plugins -->
-	
+    <script type="text/javascript" src="<?= base_url('assets/plugins/summernote/summernote.js')?>"></script>
 	<!-- Forms -->
 	<script type="text/javascript" src="<?= base_url('assets/plugins/typeahead/typeahead.min.js')?>"></script> 
 	<script type="text/javascript" src="<?= base_url('assets/plugins/autosize/jquery.autosize.min.js')?>"></script>
@@ -79,6 +81,10 @@
 	<script type="text/javascript" src="<?= base_url('assets/plugins/noty/jquery.noty.js')?>"></script>
 	<script type="text/javascript" src="<?= base_url('assets/plugins/noty/layouts/top.js')?>"></script>
 	<script type="text/javascript" src="<?= base_url('assets/plugins/noty/themes/default.js')?>"></script>
+	<!-- bootstrap-wysihtml5 -->
+	<script type="text/javascript" src="<?= base_url('assets/plugins/bootstrap-wysihtml5/wysihtml5.min.js')?>"></script>
+	<script type="text/javascript" src="<?= base_url('assets/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.min.js')?>"></script>
+
 	<!-- Styled radio and checkboxes -->
 	<!-- DataTables -->
 	<script type="text/javascript" src="<?= base_url('assets/plugins/datatables/jquery.dataTables.min.js')?>"></script>
@@ -89,6 +95,10 @@
 	<script type="text/javascript" src="<?= base_url('assets/js/app.js')?>"></script>
 	<script type="text/javascript" src="<?= base_url('assets/js/plugins.js')?>"></script>
 	<script type="text/javascript" src="<?= base_url('assets/js/plugins.form-components.js')?>"></script>
+	<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+  	<script>tinymce.init({selector:'textarea.default'});</script>
+
+
 	<script>
 	$(document).ready(function(){
 		"use strict";
@@ -103,6 +113,7 @@
     	window.base_url_js = "<?php echo base_url(); ?>";
     	
 	</script>
+
 
 </head>
 
@@ -438,9 +449,9 @@
 		<div id="sidebar" class="sidebar-fixed">
 			<div id="sidebar-content">
 				<div class="text-center" style="margin-top: 20px;">
-					<img class="img-circle" src="<?= base_url('assets/img/demo/avatar-1.jpg')?>">
-					<p><strong>John Doe</strong></p>
-					<p>Admin</p>
+					<img class="img-circle" width="90" src="<?= $this->session->userdata('PathPhoto')?>">
+					<p><strong><?php echo $this->session->userdata('Name') ?></strong></p>
+					<p><?= $this->session->userdata('User')?></p>
 				</div>
 				
 				<!--=== Navigation ===-->

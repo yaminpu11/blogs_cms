@@ -50,7 +50,7 @@
 										<div class="form-group">
 											<label class="col-md-2 control-label">Content:</label>
 											<div class="col-md-8">
-												<textarea rows="5" name="content" class="form-control wysiwyg" ></textarea>
+												<textarea rows="5" name="content" class="form-control default" ></textarea>
 											 <span class="help-block"></span>
 											</div>
 										</div>
@@ -101,7 +101,8 @@ $(document).ready(function() {
             success : function(data){
                 	$('#idtitle').val(data.ID_AboutUS);
 		            $('input[name="title"]').val(data.Title);
-		            $('textarea[name="content"]').val(data.Description);
+		            $('[name="content"]').val(data.Description);
+		            // redirect(base_url());
             },  
             error: function (data)
 		        {
@@ -117,6 +118,7 @@ $(document).ready(function() {
     		$('#btn_update').attr('disabled',true); //set button disable
 
     		var formData = new FormData($('#form')[0]);
+	       	var content = tinyMCE.get('content');
 
             $.ajax({
                 type : "POST",
@@ -125,7 +127,7 @@ $(document).ready(function() {
 				cache: false,             // To unable request pages to be cached
 				processData:false,
                 dataType : "JSON",
-                data : formData,
+                data : {formData:formData,content:content},
                 success: function(data){
 
 			       	if(data.status) //if success close modal and reload ajax table

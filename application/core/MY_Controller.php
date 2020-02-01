@@ -6,9 +6,14 @@ class MY_Controller extends CI_Controller {
     function __construct()
     {
         parent::__construct();
-
-        $this->load->library('JWT');
         // Baca server name
+        if($this->session->userdata('loggedIn')){
+            
+         } 
+         else {
+            redirect(base_url());
+        }
+        $this->load->library('JWT');
 
     }
 

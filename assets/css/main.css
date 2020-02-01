@@ -21,6 +21,13 @@
 .clearfix:after {
   clear: both;
 }
+.Published{
+  background-color: #94b86e;
+}
+.Draft{
+  background-color: #ea9c27;
+}
+
 /* # General styles
 ================================================== */
 * {
@@ -3326,3 +3333,4 @@ ul.stats li.light strong {
 .theme-dark #sidebar .notifications li a:hover {
   color: #eaebee;
 }
+

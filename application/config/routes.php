@@ -49,10 +49,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'c_content';
+$route['default_controller'] = 'c_login/login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+$route['dashboard']='c_content/index';
 $route['article']='c_content/article';
 $route['add_article']='c_content/add_article';
 $route['about']='c_content/about';
@@ -68,12 +69,16 @@ $route['__load_article'] = 'c_content/show_article';
 $route['__save_article'] = 'c_content/save_article';
 $route['__update_article'] = 'c_content/update_article';
 $route['__delete_article'] = 'c_content/delete_article';
+$route['__save_category']='c_content/save_category';
+$route['__update_category']='c_content/update_category';
+$route['__delete_category']='c_content/delete_category';
 $route['__show_editarticle/(:any)'] = 'c_content/show_editarticle/$1';
 $route['__show_about']='c_content/show_about';
 $route['__update_about']='c_content/update_about';
 $route['__load_contact'] = 'c_content/show_contact';
 
-$route['__load_contact'] = 'c_content/show_contact';
+// summernote
+$route['__upload_img'] = 'c_content/upload_image';
 
 // ====== LOGIN ========= //
 

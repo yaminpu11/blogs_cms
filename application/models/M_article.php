@@ -24,7 +24,7 @@ class M_article extends CI_Model{
 	}
 
 	function data_about($id){
-		return $this->db->get_where('about', array('ID_AboutUS' => $id))->row();
+		return $this->db->get_where('db_blogs.about', array('ID_AboutUS' => $id))->row();
 
 		// $hasil= $this->db->query('SELECT * FROM about WHERE ID_AboutUS='.$id.'');
 		// return $hasil->result();
@@ -35,6 +35,12 @@ class M_article extends CI_Model{
 		$hasil=$this->db->get('db_blogs.category');
 		return $hasil->result();
 	}
+
+	function save_category($data){
+
+		$this->db->insert('db_blogs.category', $data);
+        return $this->db->insert_id();
+    }
 
 	function save_article($data){
 
@@ -47,6 +53,13 @@ class M_article extends CI_Model{
     {
         return $this->db->get_where('db_blogs.article', array('ID_title' => $id))->row();
 	}
+
+	public function update_category($where, $data)
+    {
+    	$this->db->where('ID_category',$where);
+    	$this->db->update('db_blogs.category', $data);
+        return 1;
+    }
 
     public function update_article($where, $data)
     {
@@ -68,6 +81,14 @@ class M_article extends CI_Model{
         $hasil=$this->db->query("DELETE FROM db_blogs.article WHERE ID_title='$id'");
 		return $hasil;
     }
+
+    function delete_category(){
+       
+        $id = $this->input->post('id');
+        $hasil=$this->db->query("DELETE FROM db_blogs.category WHERE ID_category='$id'");
+		return $hasil;
+    }
+
 
     // ========== END CRUD ====== //
 

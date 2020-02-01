@@ -9,7 +9,6 @@ class C_content extends MY_Controller {
          // header('Access-Control-Allow-Origin: *');
         // header('Content-Type: application/json');
         $this->load->model('m_article');
-
 	}
 
 	public function dateTimeNow(){
@@ -81,7 +80,41 @@ class C_content extends MY_Controller {
         $data=$this->m_article->show_category();
         echo json_encode($data);
     }
- 
+ 	
+    function save_category(){
+    	date_default_timezone_set('Asia/Jakarta');
+        $dataTime = date('Y-m-d H:i:s') ;
+
+        $data = [
+                // 'ID_title'  => $this->input->post('id_title'), 
+                'Name' => $this->input->post('title'), 
+                'CreateAT' => $dataTime,
+                'UpdateBY' => $this->session->userdata('Name'),
+            ];
+	    $insert = $this->m_article->save_category($data);
+        // $result=$this->db->insert('article',$data);
+        echo json_encode(array("status" => TRUE));
+    	
+    }
+
+    function update_category(){
+    	date_default_timezone_set('Asia/Jakarta');
+        $dataTime = date('Y-m-d H:i:s') ;
+        
+        $data = [
+                // 'ID_title'  => $this->input->post('id_title'), 
+                'Name' => $this->input->post('title_edit'), 
+                'CreateAT' => $dataTime,
+                'UpdateBY' => $this->session->userdata('Name'),
+            ];
+
+        $where =$this->input->post('idtitle_edit');
+        $this->m_article->update_category($where, $data);     
+
+        echo json_encode(array("status" => TRUE));
+    	
+    }
+
     function save_article(){
     	date_default_timezone_set('Asia/Jakarta');
         $dataTime = date('Y-m-d H:i:s') ;
@@ -95,7 +128,7 @@ class C_content extends MY_Controller {
                 'Url' => $this->input->post('url'),
                 'Status' => $this->input->post('status'),
                 'CreateAT' => $dataTime,
-                'UpdateBY' => 'admin',
+                'UpdateBY' => $this->session->userdata('Name'),
             ];
              if(!empty($_FILES['photo']['name']))
 	        {
@@ -128,7 +161,7 @@ class C_content extends MY_Controller {
                 'Url' => $this->input->post('url_edit'),
                 'Status' => $this->input->post('status_edit'),
                 'CreateAT' => $dataTime,
-                'UpdateBY' => 'admin1',
+                'UpdateBY' => $this->session->userdata('Name'),
             );
  
         if($this->input->post('remove_photo')) // if remove photo checked
@@ -173,6 +206,11 @@ class C_content extends MY_Controller {
         
     }
 
+    function delete_category(){
+        $this->m_article->delete_category();
+        echo json_encode(array("status" => TRUE));     
+    }
+
     function update_about(){
     	 // header('Content-Type: application/json');
      	date_default_timezone_set('Asia/Jakarta');
@@ -182,12 +220,47 @@ class C_content extends MY_Controller {
                 'Title' => $this->input->post('title'), 
                 'Description' => $this->input->post('content'),
                 'CreateAT' => $dataTime,
-                'UpdateBY' => 'admin1',
+                'UpdateBY' => $this->session->userdata('Name'),
             );
         $this->m_article->update_about($data);        
         echo json_encode(array("status" => TRUE));
     }
+    // ======== Summernote Image ======== //
+    //Upload image summernote
+	function upload_image(){
+		if(isset($_FILES["image"]["name"])){
+			$config['upload_path'] = './assets/upload/';
+			$config['allowed_types'] = 'jpg|jpeg|png|gif';
+			$this->upload->initialize($config);
+			if(!$this->upload->do_upload('image')){
+				$this->upload->display_errors();
+				return FALSE;
+			}else{
+				$data = $this->upload->data();
+		        //Compress Image
+		        $config['image_library']='gd2';
+		        $config['source_image']='./assets/upload/'.$data['file_name'];
+		        $config['create_thumb']= FALSE;
+	            $config['maintain_ratio']= TRUE;
+	            $config['quality']= '60%';
+	            $config['width']= 1180;
+	            $config['height']= 660;
+	            $config['new_image']= './assets/upload/'.$data['file_name'];
+	            $this->load->library('image_lib', $config);
+	            $this->image_lib->resize();
+				echo base_url().'assets/upload/'.$data['file_name'];
+			}
+		}
+	}
 
+	//Delete image summernote
+	function delete_image(){
+		$src = $this->input->post('src');
+		$file_name = str_replace(base_url(), '', $src);
+		if(unlink($file_name)){
+	        echo 'File Delete Successfully';
+	    }
+	}
     // ======= END CRUD ====== //
 
     // ======= Validasi ====== //
@@ -210,11 +283,11 @@ class C_content extends MY_Controller {
             //Resize and Compress Image
             $config['image_library']='gd2';
             $config['source_image']='./upload/'.$data['file_name'];
-            $config['create_thumb']= TRUE;
+            $config['create_thumb']= FALSE;
             $config['maintain_ratio']= TRUE; // Ratio menyesuaikan  //false mengikutin height ratio
-            $config['quality']= '60%';
-            $config['width']= 600;
-            $config['height']= 400;
+            $config['quality']= '70%';
+            $config['width']= 1082;
+            $config['height']= 609;
             $config['new_image']= './upload/'.$data['file_name'];
             $this->load->library('image_lib', $config);
             $this->image_lib->initialize($config);
@@ -261,13 +334,13 @@ class C_content extends MY_Controller {
             $data['status'] = FALSE;
         }
  
-        if($this->input->post('url') == '')
-        {
-            $data['inputerror'][] = 'url';
-            $data['error_string'][] = 'Url is required';
-            $data['status'] = FALSE;
-            // Do anything for not being valid          
-        }
+        // if($this->input->post('url') == '')
+        // {
+        //     $data['inputerror'][] = 'url';
+        //     $data['error_string'][] = 'Url is required';
+        //     $data['status'] = FALSE;
+        //     // Do anything for not being valid          
+        // }
  
         if($this->input->post('status') == '')
         {
